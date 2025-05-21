@@ -9,8 +9,6 @@
 </head>
 <body>
     <div class="floating-hearts"></div>
-    
-    <!-- Control de música -->
     <div class="music-control">
         <button id="music-toggle" class="music-btn">
             <i class="fas fa-music"></i>
@@ -19,12 +17,12 @@
     </div>
     
     <!-- عنصر الصوت -->
-    <audio id="background-music" loop autoplay muted="false" playsinline>
+    <audio id="background-music" loop autoplay playsinline>
         <source src="/audio/Nefsy Ahbek.mp3" type="audio/mp3">
         المتصفح الخاص بك لا يدعم عنصر الصوت.
     </audio>
     
-    <!-- نص ترحيبي لتشغيل الموسيقى -->
+    <!-- نص ترحيبي لتشغيل الموسيقى - إضافة كلاس hidden لإخفاء النافذة افتراضياً -->
     <div class="welcome-popup hidden" id="welcome-popup">
         <div class="welcome-content">
             <h3>اه يحلوتي</h3>
@@ -32,7 +30,7 @@
             <button id="start-music-btn" class="start-music-btn">الزررر</button>
         </div>
     </div>
-    
+
     <header>
         <nav>
             <ul>
