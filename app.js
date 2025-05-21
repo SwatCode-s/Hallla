@@ -28,14 +28,18 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/ha  la', (req, res) => {
+app.get('/hala', (req, res) => {
   console.log("2")
   res.render('hala');
 });
 
 app.get('/mohammad', (req, res) => {
-  console.log("3")
   res.render('mohammad');
+});
+
+app.get('/quiz', (req, res) => {
+  console.log('4')
+  res.render('quiz');
 });
 
 // Start server

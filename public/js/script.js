@@ -127,6 +127,118 @@ document.addEventListener('DOMContentLoaded', function() {
     const footerYear = document.querySelector('footer .footer-content p:last-child');
     if (footerYear) {
         const currentYear = new Date().getFullYear();
-        footerYear.innerHTML = `© ${currentYear} محمد وحلا`;
+        if (footerYear.innerHTML.includes('©')) {
+            footerYear.innerHTML = `© ${currentYear} محمد وحلا`;
+        }
     }
+});
+
+// Background music control
+document.addEventListener('DOMContentLoaded', function() {
+    const musicToggle = document.getElementById('music-toggle');
+    const backgroundMusic = document.getElementById('background-music');
+    const welcomePopup = document.getElementById('welcome-popup');
+    const startMusicBtn = document.getElementById('start-music-btn');
+    
+    // Try to play music automatically (this will likely be blocked by browsers)
+    tryPlayMusic();
+    
+    // Set autoplay and unmute
+    backgroundMusic.muted = false;
+    
+    // Show welcome popup - always show it unless user has explicitly started music
+    if (welcomePopup) {
+        // Check if user has explicitly started music before
+        if (localStorage.getItem('musicStarted') === 'true') {
+            welcomePopup.classList.add('hidden');
+            // Try to play music if it was started before
+            playMusic();
+        } else {
+            welcomePopup.classList.remove('hidden');
+        }
+    }
+    
+    // Add click event to start music button
+    if (startMusicBtn) {
+        startMusicBtn.addEventListener('click', function() {
+            playMusic();
+            if (welcomePopup) {
+                welcomePopup.classList.add('hidden');
+            }
+            localStorage.setItem('musicStarted', 'true');
+        });
+    }
+    
+    // Try to play music (this function attempts to play but will likely be blocked)
+    function tryPlayMusic() {
+        const playPromise = backgroundMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // If autoplay works (rare), hide the popup and update UI
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                localStorage.setItem('musicPlaying', 'true');
+                localStorage.setItem('musicStarted', 'true');
+                
+                if (welcomePopup) {
+                    welcomePopup.classList.add('hidden');
+                }
+            })
+            .catch(error => {
+                // Autoplay was prevented (expected)
+                console.log('Auto-play was prevented. User needs to interact with the document first.');
+                backgroundMusic.pause();
+            });
+        }
+    }
+    
+    // Add click event to toggle music
+    if (musicToggle) {
+        musicToggle.addEventListener('click', function() {
+            if (backgroundMusic.paused) {
+                playMusic();
+            } else {
+                pauseMusic();
+            }
+        });
+    }
+    
+    // Function to play music
+    function playMusic() {
+        // Try to play music (this might fail if user hasn't interacted with the page yet)
+        const playPromise = backgroundMusic.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Music started playing successfully
+                musicToggle.classList.add('playing');
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                localStorage.setItem('musicPlaying', 'true');
+            })
+            .catch(error => {
+                // Auto-play was prevented
+                console.log('Auto-play was prevented. User needs to interact with the document first.');
+            });
+        }
+    }
+    
+    // Function to pause music
+    function pauseMusic() {
+        backgroundMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicToggle.innerHTML = '<i class="fas fa-music"></i>';
+        localStorage.setItem('musicPlaying', 'false');
+    }
+    
+    // Sync music state across pages
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'musicPlaying') {
+            if (e.newValue === 'true' && backgroundMusic.paused) {
+                playMusic();
+            } else if (e.newValue === 'false' && !backgroundMusic.paused) {
+                pauseMusic();
+            }
+        }
+    });
 });

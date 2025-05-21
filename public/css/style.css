@@ -233,6 +233,7 @@ section {
     color: var(--accent-color);
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
 }
@@ -581,6 +582,327 @@ footer {
 .footer-content i.fa-heart {
     color: white;
     animation: pulse 1.5s infinite;
+}
+
+/* Music Control */
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 15px;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.music-control:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(240, 98, 146, 0.3);
+}
+
+.music-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+}
+
+.music-btn.playing {
+    animation: pulse 1.5s infinite;
+}
+
+.music-info {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    font-weight: 500;
+}
+
+/* تنسيق لجذب الانتباه إلى زر الموسيقى */
+@keyframes pulse-attention {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(240, 98, 146, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(240, 98, 146, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(240, 98, 146, 0);
+    }
+}
+
+.music-control.attention {
+    animation: pulse-attention 2s infinite;
+}
+
+/* Welcome Popup */
+.welcome-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.welcome-popup.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-content {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(240, 98, 146, 0.3);
+    position: relative;
+    animation: popup-appear 0.5s ease;
+}
+
+@keyframes popup-appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.welcome-content h3 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.start-music-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.start-music-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(240, 98, 146, 0.3);
+}
+
+/* Quiz Styles */
+.quiz-section {
+    padding: 3rem 1rem;
+}
+
+.quiz-container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(240, 98, 146, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quiz-header h1 {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.quiz-description {
+    font-size: 1.2rem;
+    color: var(--dark-color);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.quiz-start {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.start-quiz-btn, .retry-quiz-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.3rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+}
+
+.start-quiz-btn:hover, .retry-quiz-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(240, 98, 146, 0.3);
+}
+
+.quiz-questions {
+    transition: all 0.5s ease;
+}
+
+.quiz-question {
+    margin-bottom: 2.5rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.question-text {
+    font-size: 1.4rem;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-label:hover {
+    background-color: rgba(240, 98, 146, 0.1);
+    transform: translateX(-5px);
+}
+
+.option-radio {
+    margin-left: 1rem;
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent-color);
+}
+
+.option-text {
+    font-size: 1.1rem;
+    color: var(--dark-color);
+}
+
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.nav-btn {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.nav-btn:hover {
+    background-color: rgba(240, 98, 146, 0.2);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(240, 98, 146, 0.3);
+}
+
+.quiz-result {
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.quiz-result h2 {
+    font-size: 2.2rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.result-score {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.result-message {
+    font-size: 1.3rem;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Responsive Design */
